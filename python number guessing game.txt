@@ -1,32 +1,74 @@
-import random
+import random  # Imports Python's random module so we can generate random numbers
 
 print('welcome to number guessing game!')
+# This string is a simple message printed to the console to greet the player
 
 the_number = random.randint(1, 50)
+# Generates a random integer between 1 and 50 (inclusive) and stores it
+
 max_tries = 5
+# Maximum number of guesses the player is allowed
+
 count = 0
+# Tracks how many guesses the player has used so far
+
 guessed_correctly = False
+# Boolean flag used to track whether the player guessed the number correctly
 
 while count < max_tries:
+    # Loop continues as long as the player still has remaining attempts
+
     try:
-        user_guess = int(input(f'please guess a number between 1 and 50: (attempt {count + 1}/{max_tries}): '))
+        user_guess = int(
+            input(
+                f'please guess a number between 1 and 50: (attempt {count + 1}/{max_tries}): '
+            )
+        )
+        # This is an f-string (formatted string)
+        # It dynamically inserts:
+        # - count + 1 → current attempt number
+        # - max_tries → total allowed attempts
+        # input() displays the string and waits for the user to type something
+        # int() attempts to convert the typed text into a whole number
+
     except ValueError:
         print('invalid input. please enter a whole number')
+        # This string is shown if the user types something that cannot be converted to an integer
+        # ValueError occurs when int() fails
         continue
+        # Skips the rest of the loop and asks for input again without counting this attempt
 
     count += 1
+    # Increases the guess counter after a valid number is entered
 
     if user_guess == the_number:
-        print(f'you guessed it!!, the number was {the_number}, and it only took you{count}tries!')
+        print(
+            f'you guessed it!!, the number was {the_number}, and it only took you {count} tries!'
+        )
+        # Another f-string:
+        # - {the_number} shows the correct number
+        # - {count} shows how many attempts were used
+        # This message confirms a successful guess
+
         guessed_correctly = True
+        # Updates the flag to indicate success
+
         break
+        # Exits the loop immediately because the game is won
+
     elif user_guess > the_number:
         print('too high try again')
+        # Printed when the guessed number is higher than the target number
 
     else:
         print('too low try again')
+        # Printed when the guessed number is lower than the target number
 
 if not guessed_correctly:
+    # Runs only if the loop ended without a correct guess
+
     print(f'sorry, you ran out of tries the number was {the_number}')
+    # f-string reveals the correct number after all attempts are used
 
     input('press any key to continue')
+    # This string pauses the program so the console window does not close immediately
